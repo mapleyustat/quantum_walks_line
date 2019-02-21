@@ -5,7 +5,6 @@
 # Institute: The Department of Computer Science and Engineering, UCONN
 ###########################################################################################################################
 import numpy as np
-import math as m
 from numpy import sqrt
 from numpy import transpose as T
 from numpy import tensordot as tensor
@@ -121,7 +120,7 @@ def get_unitary_operator(time):
     U = S.dot(H_tensor_I)
     return U
 
-def get_quantum_walk_state(time, init_type):
+def get_quantum_walk_state(init_type, time):
 
     t = time
     curr_state = []
@@ -158,20 +157,18 @@ def get_quantum_walk_state(time, init_type):
 
     return curr_state
 
-# '''
-
-def main():
+def main(qtype, time):
 
     import matplotlib.pyplot as plt
     import matplotlib.ticker as mticker
 
-    trials = 100
-    type = 0
-    qWalkState = get_quantum_walk_state(trials, type)
+    typ = qtype
+    tm = time
+
+    qWalkState = get_quantum_walk_state(typ, tm)
     nq = len(qWalkState)
 
-
-    if type == 0:
+    if typ == 0:
         qWalkTemp = qWalkState[:nq/2]
         print(qWalkTemp**2)
 
@@ -181,7 +178,7 @@ def main():
         labels = [-100, -50, 0, 50, 100]
         ax.set_xticklabels(labels)
 
-        plt.title('Quantum walks on a line (initial state: head tensor p0, n=%d)' %trials)
+        plt.title('Quantum walks on a line (initial state: head tensor p0, n=%d)' %tm)
 
         plt.plot(qWalkTemp**2, label='p0 = Head and 0')
         plt.xlabel('Steps')
@@ -189,7 +186,7 @@ def main():
         # plt.legend(loc='upper left')
         plt.show()
 
-    elif type == 1:
+    elif typ == 1:
         qWalkTemp = qWalkState[nq/2:]
         print(qWalkTemp**2)
 
@@ -199,7 +196,7 @@ def main():
         labels = [-100, -50, 0, 50, 100]
         ax.set_xticklabels(labels)
 
-        plt.title('Quantum walks on a line (initial state: tail tensor p0, n =%d)' %trials)
+        plt.title('Quantum walks on a line (initial state: tail tensor p0, n =%d)' %tm)
 
         plt.plot(qWalkTemp**2)
         plt.xlabel('Steps')
@@ -218,7 +215,7 @@ def main():
         labels = [-100, -50, 0, 50, 100]
         ax.set_xticklabels(labels)
 
-        plt.title('Quantum walks on a line (initial state: head + i*tail /sqrt(2) tensor p0, n=%d)' %trials)
+        plt.title('Quantum walks on a line (initial state: head + i*tail /sqrt(2) tensor p0, n=%d)' %tm)
         plt.plot(qWalkTemp.imag**2)
         plt.xlabel('Steps')
         plt.ylabel('Probability')
@@ -226,5 +223,7 @@ def main():
         plt.show()
 
 if __name__ == '__main__':
-    main()
-# '''
+
+    type = 0
+    times = 100
+    main(type, times)
