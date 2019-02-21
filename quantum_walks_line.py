@@ -149,7 +149,7 @@ def get_quantum_walk_state(time, init_type):
 
     return curr_state
 
-trials = 100
+trials = 70
 type = 0
 qWalkState = get_quantum_walk_state(trials, type)
 nq = len(qWalkState)
@@ -160,6 +160,8 @@ if type == 1:
 
 else:
     qWalkTemp = qWalkState[:nq/2]
+    # print(qWalkState**2)
+    print(qWalkTemp**2)
 
 plt.plot(qWalkTemp**2)
 plt.xlabel('Steps')
