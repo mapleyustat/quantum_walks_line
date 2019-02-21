@@ -5,6 +5,7 @@
 # Institute: The Department of Computer Science and Engineering, UCONN
 ###########################################################################################################################
 import numpy as np
+import math as m
 from numpy import sqrt
 from numpy import transpose as T
 from numpy import tensordot as tensor
@@ -50,29 +51,36 @@ def get_id_mat(time):
     return id_mat
 
 # Creates an init state:
-def get_init_state(time, type):
+def get_init_state(type):
 
-    t = time
     typ = type
-
-    basis = get_pos_space(t)
-    p0 = basis[t]
+    basis = get_pos_space(1)
+    p0 = basis[1]
+    init_state = []
+    quantum_coin = []
 
     if type==0:
         # COIN == head and state==0
         Hc = COIN[typ]
-        return kron(Hc, p0)
+        init_state = kron(Hc, p0)
+        return init_state
+
     elif type==1:
         # COIN == tail and state==0
         Tc = COIN[typ]
-        return kron(Tc, p0)
+        init_state = kron(Tc, p0)
+        return init_state
     else:
         # COIN == head + tail/sqrt(2) and state==0
         Hc = COIN[0]
-        Tc = COIN[1]
-        p0 = basis[0]
+        Tc = 1j*COIN[1]
+
+        Hc = kron(Hc, p0)
+        Tc = kron(Tc, p0)
+
         quantum_coin = (Hc + Tc)/sqrt(2)
-        return kron(quantum_coin, p0)
+
+        return quantum_coin
 
 # Creates the Unitary operator:
 def get_unitary_operator(time):
@@ -122,7 +130,9 @@ def get_quantum_walk_state(time, init_type):
 
     for i in range(t):
         if i == 0:
-            p0 = get_init_state(i+1, typ)
+            # p0 = get_init_state(i+1, typ)
+
+            p0 = get_init_state(typ)
             curr_state = get_unitary_operator(i+1).dot(p0)
             print('current state:', i+1)
             print(curr_state)
@@ -149,21 +159,45 @@ def get_quantum_walk_state(time, init_type):
 
     return curr_state
 
-trials = 70
-type = 0
-qWalkState = get_quantum_walk_state(trials, type)
-nq = len(qWalkState)
+# '''
 
-if type == 1:
-    qWalkTemp = qWalkState[nq/2:]
-    print(qWalkTemp**2)
+def main():
+    trials = 70
+    type = 0
+    qWalkState = get_quantum_walk_state(trials, type)
+    nq = len(qWalkState)
 
-else:
-    qWalkTemp = qWalkState[:nq/2]
-    # print(qWalkState**2)
-    print(qWalkTemp**2)
+    if type == 0:
+        qWalkTemp = qWalkState[:nq/2]
+        print(qWalkTemp**2)
 
-plt.plot(qWalkTemp**2)
-plt.xlabel('Steps')
-plt.ylabel('Probability')
-plt.show()
+        plt.plot(qWalkTemp**2)
+        plt.xlabel('Steps')
+        plt.ylabel('Probability')
+        # plt.axis([-1000,1000, 0,0.15])
+        plt.show()
+
+    elif type == 1:
+        qWalkTemp = qWalkState[nq/2:]
+        print(qWalkTemp**2)
+
+        plt.plot(qWalkTemp**2)
+        plt.xlabel('Steps')
+        plt.ylabel('Probability')
+        # plt.axis([-1000,1000, 0,0.15])
+        plt.show()
+
+    else:
+
+        qWalkTemp = qWalkState[:nq/2]
+        print(qWalkTemp.imag)
+
+        plt.plot(qWalkTemp.imag**2)
+        plt.xlabel('Steps')
+        plt.ylabel('Probability')
+        # plt.axis([-1000,1000, 0,0.15])
+        plt.show()
+
+if __name__ == '__main__':
+    main()
+# '''
