@@ -224,6 +224,6 @@ def main(qtype, time):
 
 if __name__ == '__main__':
 
-    type = 0
+    type = 1
     times = 100
     main(type, times)
