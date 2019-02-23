@@ -194,7 +194,7 @@ def main(qtype, time):
         fig.canvas.draw()
         # labels = [-70, -50, -30, -10, 10, 30, 50, 70]
         labels = [-100, -50, 0, 50, 100]
-        ax.set_xticklabels(labels)
+        # ax.set_xticklabels(labels)
 
         plt.title('Quantum walks on a line (initial state: tail tensor p0, n =%d)' %tm)
 
