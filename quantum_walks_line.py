@@ -177,8 +177,8 @@ def main(qtype, time):
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
-        # labels = [-70, -50, -30, -10, 10, 30, 50, 70]
-        labels = [-100, -50, 0, 50, 100]
+        # labels = [-100, -50, 0, 50, 100]
+        labels = [-200, -150, -100, -50, 0, 50, 100, 150, 200]
         ax.set_xticklabels(labels)
 
         plt.title('Quantum walks on a line (initial state: head tensor p0, n=%d)' %tm)
@@ -198,9 +198,9 @@ def main(qtype, time):
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
-        # labels = [-70, -50, -30, -10, 10, 30, 50, 70]
-        labels = [-100, -50, 0, 50, 100]
-        # ax.set_xticklabels(labels)
+        # labels = [-100, -50, 0, 50, 100]
+        labels = [-200, -150, -100, -50, 0, 50, 100, 150, 200]
+        ax.set_xticklabels(labels)
 
         plt.title('Quantum walks on a line (initial state: tail tensor p0, n =%d)' %tm)
 
@@ -220,8 +220,8 @@ def main(qtype, time):
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
-        # labels = [-70, -50, -30, -10, 10, 30, 50, 70]
-        labels = [-100, -50, 0, 50, 100]
+        # labels = [-100, -50, 0, 50, 100]
+        labels = [-200, -150, -100, -50, 0, 50, 100, 150, 200]
         ax.set_xticklabels(labels)
 
         plt.title('Quantum walks on a line (initial state: head + i*tail /sqrt(2) tensor p0, n=%d)' %tm)
@@ -233,6 +233,6 @@ def main(qtype, time):
 
 if __name__ == '__main__':
 
-    type = 0
-    times = 100
+    type = 2
+    times = 200
     main(type, times)
