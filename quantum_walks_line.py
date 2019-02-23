@@ -169,8 +169,11 @@ def main(qtype, time):
     nq = len(qWalkState)
 
     if typ == 0:
-        qWalkTemp = qWalkState[:nq/2]
-        print(qWalkTemp**2)
+        qWalkTemp1 = qWalkState[:nq/2]
+        qWalkTemp2 = qWalkState[nq/2:]
+
+        qWalkTemp = qWalkTemp1**2 + qWalkTemp2**2
+        print(qWalkTemp)
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
@@ -180,15 +183,18 @@ def main(qtype, time):
 
         plt.title('Quantum walks on a line (initial state: head tensor p0, n=%d)' %tm)
 
-        plt.plot(qWalkTemp**2, label='p0 = Head and 0')
+        plt.plot(qWalkTemp, label='p0 = Head and 0')
         plt.xlabel('Steps')
         plt.ylabel('Probability')
         # plt.legend(loc='upper left')
         plt.show()
 
     elif typ == 1:
-        qWalkTemp = qWalkState[nq/2:]
-        print(qWalkTemp**2)
+        qWalkTemp1 = qWalkState[:nq/2]
+        qWalkTemp2 = qWalkState[nq/2:]
+
+        qWalkTemp = qWalkTemp1**2 + qWalkTemp2**2
+        print(qWalkTemp)
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
@@ -198,7 +204,7 @@ def main(qtype, time):
 
         plt.title('Quantum walks on a line (initial state: tail tensor p0, n =%d)' %tm)
 
-        plt.plot(qWalkTemp**2)
+        plt.plot(qWalkTemp)
         plt.xlabel('Steps')
         plt.ylabel('Probability')
         # plt.axis([-1000,1000, 0,0.15])
@@ -206,8 +212,11 @@ def main(qtype, time):
 
     else:
 
-        qWalkTemp = qWalkState[:nq/2]
-        print(qWalkTemp.imag)
+        qWalkTemp1 = qWalkState[:nq/2]
+        qWalkTemp2 = qWalkState[nq/2:]
+        qWalkTemp = qWalkTemp1**2 + qWalkTemp2**2
+
+        print(abs(qWalkTemp.imag))
 
         fig, ax = plt.subplots()
         fig.canvas.draw()
@@ -216,7 +225,7 @@ def main(qtype, time):
         ax.set_xticklabels(labels)
 
         plt.title('Quantum walks on a line (initial state: head + i*tail /sqrt(2) tensor p0, n=%d)' %tm)
-        plt.plot(qWalkTemp.imag**2)
+        plt.plot(abs(qWalkTemp.imag))
         plt.xlabel('Steps')
         plt.ylabel('Probability')
         # plt.axis([-1000,1000, 0,0.15])
@@ -224,6 +233,6 @@ def main(qtype, time):
 
 if __name__ == '__main__':
 
-    type = 1
+    type = 0
     times = 100
     main(type, times)
