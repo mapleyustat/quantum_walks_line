@@ -5,19 +5,14 @@
 # Institute: The Department of Computer Science and Engineering, UCONN
 ###########################################################################################################################
 import numpy as np
-from numpy import sqrt
+#kron: Kronecker product (kron): matrix tensor matrix
+from numpy import sqrt, dot, outer, reshape, kron, append, insert
 from numpy import transpose as T
 from numpy import tensordot as tensor
 from numpy.linalg import inv
 from numpy.linalg import norm
-from numpy import dot
-from numpy import outer
 from numpy import array as vec
-from numpy import reshape
-from numpy import kron #Kronecker product (kron): matrix tensor matrix
 from numpy import eye as id
-from numpy import append
-from numpy import insert
 
 # Hadamard operator:
 H = (1/sqrt(2))*vec([[1, 1],[1, -1]])
@@ -234,5 +229,5 @@ def main(qtype, time):
 if __name__ == '__main__':
 
     type = 2
-    times = 200
+    times = 100
     main(type, times)
